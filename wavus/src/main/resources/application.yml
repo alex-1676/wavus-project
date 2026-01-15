@@ -1,0 +1,113 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    default: local
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 1676
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.springframework.security: info
+
+app:
+  jwt:
+    # HS256 기준 최소 32바이트 이상 권장(더 길수록 좋음)
+    secret: "CHANGE_ME_TO_LONG_RANDOM_SECRET_32+"
+    issuer: "my-app"
+    access-exp-minutes: 3
+    refresh-exp-days: 1
+
+  # ✅ 기본값(프로파일에서 덮어씀)
+  cors:
+    allowed-origins:
+      - "http://localhost:5173"
+    allowed-methods: ["GET","POST","PUT","PATCH","DELETE","OPTIONS"]
+    allowed-headers: ["Authorization","Content-Type","X-Requested-With"]
+    exposed-headers: ["Set-Cookie"]
+    allow-credentials: true
+    max-age-seconds: 3600
+
+  cookie:
+    refresh-name: "refreshToken"
+    refresh-path: "/auth"
+    refresh-secure: false
+    refresh-same-site: "Lax"
+
+  security:
+    refresh-key-prefix: "refresh:"
+
+# ==========================================================
+# local: 로컬 개발 (Vite 프록시 사용 전제)
+# - 프론트에서 /api 로 호출 → Vite가 백엔드로 프록시
+# - 브라우저는 same-origin처럼 보게 되어 쿠키/CORS 스트레스가 줄어듦
+# ==========================================================
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+app:
+  cors:
+    # 로컬 프록시를 쓰면 사실상 필요도 낮지만, 유지해둠
+    allowed-origins:
+      - "http://localhost:5173"
+
+  cookie:
+    refresh-secure: false
+    refresh-same-site: "Lax"
+
+# ==========================================================
+# prod: 운영/배포 (프론트/백 도메인 분리 기준의 정석 세팅)
+# - HTTPS 전제
+# - refreshToken 쿠키: SameSite=None + Secure=true
+# - CORS는 정확한 프론트 도메인만 허용 + credentials=true
+# ==========================================================
+---
+#spring:
+#  config:
+#    activate:
+#      on-profile: prod
+#
+#  datasource:
+#    url: ${DB_URL}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
+#
+#  data:
+#    redis:
+#      host: ${REDIS_HOST}
+#      port: ${REDIS_PORT:6379}
+#      password: ${REDIS_PASSWORD:}
+#
+#app:
+#  cors:
+#    allowed-origins:
+#      - ${CORS_ALLOWED_ORIGIN}  # 예: https://app.example.com
+#
+#  jwt:
+#    secret: ${JWT_SECRET}
+#
+#  cookie:
+#    refresh-secure: true
+#    refresh-same-site: "None"
