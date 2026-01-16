@@ -61,21 +61,21 @@ app:
 # - 프론트에서 /api 로 호출 → Vite가 백엔드로 프록시
 # - 브라우저는 same-origin처럼 보게 되어 쿠키/CORS 스트레스가 줄어듦
 # ==========================================================
----
-spring:
-  config:
-    activate:
-      on-profile: local
+#---
+#spring:
+#  config:
+#    activate:
+#      on-profile: local
+#
+#app:
+#  cors:
+#    # 로컬 프록시를 쓰면 사실상 필요도 낮지만, 유지해둠
+#    allowed-origins:
+#      - "http://localhost:5173"
 
-app:
-  cors:
-    # 로컬 프록시를 쓰면 사실상 필요도 낮지만, 유지해둠
-    allowed-origins:
-      - "http://localhost:5173"
-
-  cookie:
-    refresh-secure: false
-    refresh-same-site: "Lax"
+#  cookie:
+#    refresh-secure: false
+#    refresh-same-site: "Lax"
 
 # ==========================================================
 # prod: 운영/배포 (프론트/백 도메인 분리 기준의 정석 세팅)

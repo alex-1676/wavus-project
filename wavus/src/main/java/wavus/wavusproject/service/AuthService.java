@@ -2,7 +2,7 @@ package wavus.wavusproject.service;
 
 
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
 import wavus.wavusproject.jwt.JwtProvider;
@@ -15,7 +15,8 @@ public class AuthService {
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
 
-    @Value("${jwt.refresh-exp-ms}")
+
+    @Value("${app.jwt.refresh-exp-days}")
     private long refreshExpMs;
 
 }
