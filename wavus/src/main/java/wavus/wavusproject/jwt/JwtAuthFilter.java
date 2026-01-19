@@ -27,6 +27,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private final JwtProvider  jwtProvider;
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getServletPath();
+        return path.startsWith("/auth/");
+    }
+
+
+    @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
@@ -34,7 +41,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String header =  request.getHeader("Authorization");
 
         if(header != null && header.startsWith("Bearer ")){
+
             String token = header.substring(7);
+
+            if (!jwtProvider.isValid(token)) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setContentType("application/json; charset=UTF-8");
+                response.getWriter().write("{\"message\":\"Invalid or expired access token\"}");
+                return;
+            }
+
 
             if(jwtProvider.isValid(token)) {
                 Jws<Claims> jws = jwtProvider.parseToken(token);
