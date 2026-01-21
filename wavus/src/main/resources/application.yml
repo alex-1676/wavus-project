@@ -12,7 +12,7 @@ app:
   jwt:
     secret: "CHANGE_ME_TO_LONG_RANDOM_SECRET_32+"
     issuer: "my-app"
-    access-exp-minutes: 3
+    access-exp-minutes: 1
     refresh-exp-days: 1
 
   cors:

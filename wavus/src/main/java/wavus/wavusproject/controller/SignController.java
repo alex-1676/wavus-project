@@ -16,7 +16,7 @@ import wavus.wavusproject.service.SignUpService;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/auth")
+@RequestMapping("/auth2")
 public class SignController {
 
     private final SignUpService signUpService;
