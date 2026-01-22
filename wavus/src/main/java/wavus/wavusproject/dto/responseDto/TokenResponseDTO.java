@@ -13,6 +13,9 @@ public class TokenResponseDTO {
 
     private String accessToken;
     private String refreshToken;
+    private String userID;
+    private String role;
+
 
 }
 

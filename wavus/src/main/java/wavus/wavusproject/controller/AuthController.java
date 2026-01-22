@@ -15,8 +15,8 @@ public class AuthController {
 
     @PostMapping("/reissue")
     public AccessTokenResponseDTO reissue(
-            @RequestBody ReissueRequestDTO reissueRequestDTO) {
-        return  authService.reissue(reissueRequestDTO);
+            @CookieValue(name = "refreshToken",required = false) String refreshToken) {
+        return  authService.reissue(refreshToken);
     }
 
 }

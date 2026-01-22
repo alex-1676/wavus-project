@@ -2,7 +2,10 @@ package wavus.wavusproject.service;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,6 +19,7 @@ import wavus.wavusproject.jwt.RefreshTokenService;
 import java.time.Duration;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class LoginService {
     private final AuthenticationManager authenticationManager;
@@ -27,6 +31,8 @@ public class LoginService {
     private long refreshExpMs;
 
     public TokenResponseDTO login(LoginRequestDTO loginReq) {
+
+        log.info("Login RequestDTO : {}", loginReq);
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginReq.getLoginId(),
@@ -45,7 +51,7 @@ public class LoginService {
 
         refreshTokenService.save(userId,refreshToken, Duration.ofDays(refreshExpMs));
 
-        return new TokenResponseDTO(accessToken,refreshToken);
+        return new TokenResponseDTO(accessToken, refreshToken,userId , role);
     }
 
 }

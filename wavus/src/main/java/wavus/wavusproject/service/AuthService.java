@@ -15,8 +15,8 @@ public class AuthService {
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
 
-    public AccessTokenResponseDTO reissue(ReissueRequestDTO req) {
-        String refreshToken = req.getRefreshToken();
+    public AccessTokenResponseDTO reissue(String refreshToken) {
+
 
         // 1) refresh 토큰 유효성(서명/만료)
         if (refreshToken == null || refreshToken.isBlank()) {
