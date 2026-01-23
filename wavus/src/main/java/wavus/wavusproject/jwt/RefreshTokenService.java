@@ -1,6 +1,7 @@
 package wavus.wavusproject.jwt;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -8,6 +9,7 @@ import java.time.Duration;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class RefreshTokenService {
 
     private final StringRedisTemplate redisTemplate;
@@ -18,6 +20,7 @@ public class RefreshTokenService {
 
     public void save(String userId, String refreshToken , Duration ttl){
         redisTemplate.opsForValue().set(key(userId), refreshToken, ttl);
+        log.info("Refresh Token Save with Redis");
     }
 
     public String get(String userId){

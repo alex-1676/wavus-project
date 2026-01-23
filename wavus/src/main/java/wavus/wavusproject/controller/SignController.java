@@ -28,7 +28,7 @@ public class SignController {
             // 역할까지 같이 응답
             return ResponseEntity.ok().body(
                     SignUpResponseDTO.builder()
-                            .userID(user.getUserID())
+                            .userID(user.getUserid())
                             .role(user.getRole())
                             .build()
             );

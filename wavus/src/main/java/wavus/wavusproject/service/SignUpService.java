@@ -20,13 +20,13 @@ public class SignUpService {
 
     @Transactional
     public User signUp(SignUpRequestDTO signReq) throws IllegalAccessException {
-        if(userRepository.existsByUserID(signReq.getUserId())){
+        if(userRepository.existsByUserid(signReq.getUserId())){
             throw new IllegalAccessException("userId already exists");
         }
 
         String encodedPassword = passwordEncoder.encode(signReq.getPassword());
         User user = User.builder()
-                .userID(signReq.getUserId())
+                .userid(signReq.getUserId())
                 .password(encodedPassword)
                 .regionCode(signReq.getRegionCode())
                 .role(Role.USER)

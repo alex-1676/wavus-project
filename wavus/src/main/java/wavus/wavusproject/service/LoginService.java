@@ -35,7 +35,7 @@ public class LoginService {
         log.info("Login RequestDTO : {}", loginReq);
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginReq.getLoginId(),
+                        loginReq.getUserId(),
                         loginReq.getPassword()
                 )
         );

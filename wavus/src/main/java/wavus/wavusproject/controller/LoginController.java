@@ -38,10 +38,12 @@ public class LoginController {
                 .maxAge(Duration.ofDays(14))
                 .build();
 
-        TokenResponseDTO body = new TokenResponseDTO(tokens.getAccessToken(), null, tokens.getUserID(), tokens.getRole());
+        TokenResponseDTO body = new TokenResponseDTO(tokens.getAccessToken(), null, tokens.getUserId(), tokens.getRole());
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
                 .body(body);
 
     }
+
+
 }

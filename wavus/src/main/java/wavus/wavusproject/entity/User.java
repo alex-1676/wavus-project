@@ -6,7 +6,7 @@ import lombok.*;
 @Getter
 @Entity
 @Builder
-@Table(name = "Users")
+@Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -15,8 +15,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long defaultID;
 
-    @Column(nullable = false, name = "userID")
-    private String userID;
+    @Column(nullable = false, name = "userid")
+    private String userid;
 
     @Column(nullable = false, name = "password")
     private String password;
@@ -25,7 +25,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Column(nullable = false, name = "regionCode")
+    @Column(nullable = true, name = "region_code")
     private String regionCode;
 
 

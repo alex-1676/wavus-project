@@ -9,6 +9,6 @@ import lombok.Getter;
 @Builder
 public class LoginRequestDTO {
 
-    private String loginId;
+    private String userId;
     private String password;
 }

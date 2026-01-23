@@ -2,6 +2,7 @@ package wavus.wavusproject.service;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import wavus.wavusproject.dto.requestdto.ReissueRequestDTO;
 import wavus.wavusproject.dto.responseDto.AccessTokenResponseDTO;
@@ -10,6 +11,7 @@ import wavus.wavusproject.jwt.RefreshTokenService;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthService {
 
     private final JwtProvider jwtProvider;
@@ -53,7 +55,7 @@ public class AuthService {
 
         // 4) 새 access 발급
         String newAccess = jwtProvider.createAccessToken(userId, role);
-
+        log.info("Create AcessToken Success!!!!!!");
         return AccessTokenResponseDTO.builder()
                 .accessToken(newAccess)
                 .build();

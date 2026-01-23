@@ -1,5 +1,7 @@
 server:
   port: 8080
+  servlet:
+    context-path: /api
 
 spring:
   profiles:
@@ -15,12 +17,13 @@ app:
     access-exp-minutes: 1
     refresh-exp-days: 1
 
+
   cors:
-    allowed-origins:
-      - "http://localhost:5173"
-    allowed-methods: ["GET","POST","PUT","PATCH","DELETE","OPTIONS"]
-    allowed-headers: ["Authorization","Content-Type","X-Requested-With"]
-    exposed-headers: ["Set-Cookie"]
+    allowed-origins: "http://localhost:5173,http://localhost:3000,http://127.0.0.1:3000"
+    allowed-methods: "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+    allowed-headers: "Authorization,Content-Type,X-Requested-With"
+    exposed-headers: "Set-Cookie"
+
     allow-credentials: true
     max-age-seconds: 3600
 
@@ -36,7 +39,7 @@ app:
 logging:
   level:
     org.hibernate.SQL: debug
-    org.springframework.security: info
+    org.springframework.security: DEBUG
 
 # =========================
 # local
@@ -66,13 +69,12 @@ spring:
       host: localhost
       port: 6379
 
-app:
-  cors:
-    allowed-origins:
-      - "http://localhost:5173"
-  cookie:
-    refresh-secure: false
-    refresh-same-site: "Lax"
+#app:
+#  cors:
+#    allowed-origins: "http://localhost:5173,http://localhost:3000,http://127.0.0.1:3000"
+#  cookie:
+#    refresh-secure: false
+#    refresh-same-site: "Lax"
 
 # =========================
 # prod
